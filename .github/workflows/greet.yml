@@ -1,4 +1,4 @@
-name: Greeting
+name: Greting
 
 on: [push, pull_request]
 
