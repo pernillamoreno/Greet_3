@@ -3,6 +3,6 @@
 
 #include <string>
 
-const std::string &greet(const std::string &name);
+std::string greet(const std::string &name);
 
 #endif

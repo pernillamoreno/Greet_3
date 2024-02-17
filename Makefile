@@ -22,7 +22,7 @@ $(BUILD_DIR)/%.o: %.cpp
 .PHONY: all check clean .mkbuild 
 
 
-check: .mkbuild $(BUILD_DIR)/$(TEST_EXE) #rule yo run the test
+check: .mkbuild $(BUILD_DIR)/$(TEST_EXE) 
 	@./$(BUILD_DIR)/$(TEST_EXE)
 
 clean:
