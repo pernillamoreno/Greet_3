@@ -10,8 +10,8 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
             - name: Install
-              run: #install googletest on the server
-                sudo apt-get install essential-build cmake
+              run: 
+                sudo apt-get install build-essential cmake
                 git clone https://github.com/google/googletest
                 cd googletest && mkdir build
                 cd build && cmake .. && make
