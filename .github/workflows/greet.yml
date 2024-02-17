@@ -1,43 +1,36 @@
-name: Greting
+name: Greeting
 
 on: [push, pull_request]
 
 jobs:
-    check:
-        name: Build & Test
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Install Dependencies
-              run: 
-                sudo apt-get update
-                sudo apt-get install -y build-essential cmake git
-                git clone https://github.com/google/googletest
-                cd googletest && mkdir build
-                cd build && cmake .. && make
-                sudo make install
-            - name: Build and Run
-              run: 
-                make
-                make check
-    release:
-        if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
-        name: Make Release
-        runs-on: ubuntu-latest
-        needs: [check]
-        steps:
-            - name: Create Release
-              uses: marvinpinto/action-automatic-releases@latest
-              with:
-                repo_token: ${{ secrets.GITHUB_TOKEN }}
-                automatic_release_tag: latest
-                title: Latest Version
-                prerelease: true
-
-
-
-
-
-
-
+  check:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake git
+          git clone https://github.com/google/googletest
+          cd googletest && mkdir build
+          cd build && cmake .. && make
+          sudo make install
+      - name: Build and Run
+        run: |
+          make
+          make check
+  release:
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+    name: Make Release
+    runs-on: ubuntu-latest
+    needs: [check]
+    steps:
+      - name: Create Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          title: Latest Version
+          prerelease: true
