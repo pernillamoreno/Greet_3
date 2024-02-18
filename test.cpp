@@ -26,4 +26,10 @@ TEST(greetTest, oneName)
     EXPECT_EQ("Hello, Bob.", greet("  ,    Bob"));*/
     EXPECT_EQ("Hello, Bob.", greet("  ,    0Bob, @ "));
 }
+TEST(greetTest, shoutName)
+{
+    EXPECT_EQ("HELLO, BOB!", greet("BOB"));
+    EXPECT_EQ("HELLO, BOB!", greet("  ,    0BOB, @ "));
+
+}
 
