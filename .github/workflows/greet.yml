@@ -34,3 +34,4 @@ jobs:
           automatic_release_tag: latest
           title: Latest Version
           prerelease: true
+
