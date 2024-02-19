@@ -6,10 +6,11 @@ constexpr char const *HELLO_U{"HELLO, "};
 constexpr char const *HELLO_L{"Hello, "};
 constexpr char const *HELLO_MY_FRIEND{"Hello, my friend."};
 
-bool isUpper(const std::string &name)
+static std::string greeting;
+static bool isUpper(const std::string &string)
 {
     bool upper{true};
-    for (const auto &chr : name)
+    for (const auto &chr : string)
     {
         if (std::islower(chr))
         {
@@ -18,6 +19,38 @@ bool isUpper(const std::string &name)
         }
     }
     return upper;
+}
+
+static std::vector<std::string> extractNames(const std::string &string)
+{
+    std::vector<std::string> names;
+
+    std::string name{""};
+    for (const auto &chr : string)
+    {
+        if (std::isalpha(chr))
+        {
+            name += chr;
+        }
+        else if (chr == ',') // if chr is a commma it is end of a name
+        {
+            if (name != "") // if name is not empty we push to the vector and we clear name
+            {
+                names.push_back(name);
+                name = "";
+            }
+           
+        }
+        else
+        {
+            ;
+        }
+    }
+    if (name != "")
+    {
+        names.push_back(name);
+    }
+    return names;
 }
 
 std::string getName(const std::string &name)
@@ -35,10 +68,9 @@ std::string getName(const std::string &name)
 std::string greet(const std::string &name)
 {
     std::string greeting{""};
+    std::vector<std::string> names{extractNames(name)};
 
-    std::string temp{getName(name)};
-
-    if (temp == "")
+    if (0 == names.size()) // if 0 its no name and HELLO_MY_FRIEND will bw returned
     {
         // greeting = "Hello, my friend.";
         // change to contexpr
@@ -46,16 +78,22 @@ std::string greet(const std::string &name)
     }
     else
     {
-        if (isUpper(temp))
+        if (1 == names.size())
         {
-            // greeting = "Hello, " + temp + ".";
-            greeting = HELLO_U + temp + "!";
+            if (isUpper(names[0]))
+            {
+                greeting = HELLO_U + names[0] + "!";
+            }
+            else
+            {
+                greeting = HELLO_L + names[0] + ".";
+            }
         }
         else
-
         {
-            greeting = HELLO_L + temp + ".";
+            greeting = HELLO_L + names[0] + " and " + names[1] + ".";
         }
+
     }
     return greeting;
 }
